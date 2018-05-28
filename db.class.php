@@ -36,20 +36,20 @@ class DB{
         # *Valores padrões*
         switch($serverName){
             case 'localhost' || '127.0.0.1':
-                $this->hostname = 'l60ger0354.locaweb.com.br';
+                $this->hostname = 'localhost';
                 $this->database = '';
                 $this->username = '';
                 $this->password = '';
             break;
-            case 'homologa.mokedsystem.com':
-                $this->hostname = 'l60ger0354.locaweb.com.br';
-                $this->database = 'moked_1';
+            case 'homologacao.com.br':
+                $this->hostname = 'homologacao';
+                $this->database = 'homologa';
                 $this->username = '';
-                $this->password = 'mKON6RLDC95_dv';
+                $this->password = 'password';
             break;
-            case 'mokedsystem.com':
-                $this->hostname = 'l60ger0354.locaweb.com.br';
-                $this->database = 'localhost';
+            case 'oficial.com.br':
+                $this->hostname = 'oficial.com.br';
+                $this->database = 'oficial';
                 $this->username = '';
                 $this->password = '';
             break;
