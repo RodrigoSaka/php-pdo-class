@@ -23,17 +23,17 @@ class DB{
     # @array, Parametros da query
     private $parameters;
     /**
-     * Construtor padrão
-     * Seta os dados para onexão ao banco de dados
+     * Construtor padrÃ£o
+     * Seta os dados para onexÃ£o ao banco de dados
      * @param string $database [Nome do banco de dados (Opcional)]
-     * @param string $username [Nome do usuário (Opcional)]
-     * @param string $password [Senha do usuário (Opcional)]
+     * @param string $username [Nome do usuï¿½rio (Opcional)]
+     * @param string $password [Senha do usuï¿½rio (Opcional)]
      */
     public function __construct($database=null,$username=null,$password=null){
-        # Setando dados para conexão
+        # Setando dados para conexÃ£o
         $serverName = $_SERVER['SERVER_NAME'];
-        # Validando dados através do dominio 
-        # *Valores padrões*
+        # Validando dados atravï¿½s do dominio 
+        # *Valores padrï¿½es*
         switch($serverName){
             case 'localhost' || '127.0.0.1':
                 $this->hostname = 'localhost';
@@ -69,13 +69,13 @@ class DB{
             #Bancos oficiais
             $this->password = $password;
         }
-        # Inicializando a conexão
+        # Inicializando a conexÃ£o
         $this->Connect();
         $this->parameters = array();
     }
     
     /**
-     * Método para conexão do MySQL
+     * MÃ©todo para conexÃ£o do MySQL
      */
     private function Connect(){
         $dsn = 'mysql:dbname='.$this->database.';host='.$this->hostname;
@@ -89,7 +89,7 @@ class DB{
         $this->bConnected = true;
     }
     /*
-    * Fecha a conexão
+    * Fecha a conexÃ£o
     *
     */
     public function CloseConnection(){
@@ -99,9 +99,9 @@ class DB{
     }
         
     /**
-    * Todos os métodos necessários para executar.
+    * Todos os mÃ©todos necessÃ¡rios para executar.
     * 
-    * 1. Se não estiver conectado, é conectado ao banco de dados.
+    * 1. Se nÃ£o estiver conectado, Ã© conectado ao banco de dados.
     * 2. Prepara a Query.
     * 3. Parametriza Query.
     * 4. Executa Query.   
@@ -112,12 +112,11 @@ class DB{
         if(!$this->bConnected){$this->Connect();}
         # Parametriza Query
         $this->bindMore($parameters);
-        # Bind da paremetrização
+        # Bind da paremetrizaÃ§Ã£o
         if(!empty($this->parameters)){
             foreach($this->parameters as $param){
                 $parameters = explode("\x7F",$param);
-                # Não esta usando o bindValue ou bindParam devido as restrições e problemas referente a passagem de parametros.
-                $query = preg_replace("/{$parameters[0]}(?!\w)/", $parameters[1], $query);
+                $this->sQuery->bindParam($parameters[0],$parameters[1]);
             }       
         }
         # Prepara a Query
@@ -173,9 +172,9 @@ class DB{
     *     $update = $db->query("UPDATE Persons SET firstname = :f WHERE Id = :id", array("f"=>"Jan","id"=>"32"));
     *     $insert = $db->query("INSERT INTO Persons(Firstname,Age) VALUES(:f,:age)", array("f"=>"Vivek","age"=>"20"));
     *
-    * Aviso: Ao usar 'where in' não é possivel usar bind
+    * Aviso: Ao usar 'where in' nÃ£o Ã© possivel usar bind
     *     $db->bind('ids',$ids);
-    *     $db->query('select * from capiroto where id in (:ids)');//Não funciona (Precisa usar com parametrização)
+    *     $db->query('select * from capiroto where id in (:ids)');//NÃ£o funciona (Precisa usar com parametrizaÃ§Ã£o)
     * Use dessa forma:
     *     $db->query("select * from capiroto where id in ({join(',',$ids)})");
     * @param  string $query
@@ -184,7 +183,7 @@ class DB{
     * @return mixed
     */          
     public function query($query,$params = null, $fetchmode = PDO::FETCH_ASSOC){
-        # Elimina espaços desnecessários
+        # Elimina espaÃ§os desnecessÃ¡rios
         $query = trim($query);
         $this->Init($query,$params);
         $rawStatement = explode(" ", $query);
@@ -256,14 +255,14 @@ class DB{
         return $this->sQuery->fetchColumn();
     }
     /**
-     * Inicia transação
+     * Inicia transaÃ§Ã£o
      * @return void
      */
     public function start(){
         $this->pdo->beginTransaction();
     }
     /**
-     * Efetiva a alteração
+     * Efetiva a alteraÃ§Ã£o
      * @return void
      */
     public function commit(){
