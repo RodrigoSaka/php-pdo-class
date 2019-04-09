@@ -26,14 +26,14 @@ class DB{
      * Construtor padrão
      * Seta os dados para onexão ao banco de dados
      * @param string $database [Nome do banco de dados (Opcional)]
-     * @param string $username [Nome do usu�rio (Opcional)]
-     * @param string $password [Senha do usu�rio (Opcional)]
+     * @param string $username [Nome do usuário (Opcional)]
+     * @param string $password [Senha do usuário (Opcional)]
      */
     public function __construct($database=null,$username=null,$password=null){
         # Setando dados para conexão
         $serverName = $_SERVER['SERVER_NAME'];
-        # Validando dados atrav�s do dominio 
-        # *Valores padr�es*
+        # Validando dados através do dominio 
+        # *Valores padrões*
         switch($serverName){
             case 'localhost' || '127.0.0.1':
                 $this->hostname = 'localhost';
