@@ -29,7 +29,7 @@ class DB{
      * @param string $username [Nome do usuário (Opcional)]
      * @param string $password [Senha do usuário (Opcional)]
      */
-    public function __construct($database=null,$username=null,$password=null){
+    public function __construct($database=null, $username=null, $password=null){
         # Setando dados para conexão
         $serverName = $_SERVER['SERVER_NAME'];
         # Validando dados através do dominio 
@@ -107,7 +107,7 @@ class DB{
     * 4. Executa Query.   
     * 6. Reseta o Parameters.
     */
-    private function Init($query,$parameters = ""){
+    private function Init($query, $parameters = ""){
         # Conecta ao banco de dados
         if(!$this->bConnected){$this->Connect();}
         # Parametriza Query
@@ -144,7 +144,7 @@ class DB{
     * @param array $parray
     */  
     public function bindMore($parray){
-        if(empty($this->parameters) && is_array($parray)) {
+        if(is_array($parray)) {
             $columns = array_keys($parray);
             foreach($columns as $i => &$column) {
                 $this->bind($column, $parray[$column]);
@@ -182,7 +182,7 @@ class DB{
     * @param  int    $fetchmode
     * @return mixed
     */          
-    public function query($query,$params = null, $fetchmode = PDO::FETCH_ASSOC){
+    public function query($query, $params = null, $fetchmode = PDO::FETCH_ASSOC){
         # Elimina espaços desnecessários
         $query = trim($query);
         $this->Init($query,$params);
@@ -236,7 +236,7 @@ class DB{
     * @param  int    $fetchmode
     * @return array
     */  
-    public function row($query,$params = null,$fetchmode = PDO::FETCH_ASSOC){          
+    public function row($query, $params = null, $fetchmode = PDO::FETCH_ASSOC){          
         $this->Init($query,$params);
         return $this->sQuery->fetch($fetchmode);            
     }
@@ -250,7 +250,7 @@ class DB{
     * @param  array  $params
     * @return string
     */
-    public function single($query,$params = null){
+    public function single($query, $params = null){
         $this->Init($query,$params);
         return $this->sQuery->fetchColumn();
     }
